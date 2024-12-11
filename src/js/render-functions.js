@@ -1,9 +1,11 @@
+// importing simplelightbox package
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const galleryElement = document.querySelector('.gallery');
 let lightbox;
 
+// implementing gallery markup
 export function renderGallery(images) {
   const markup = images
     .map(
@@ -25,9 +27,9 @@ export function renderGallery(images) {
 
   if (!lightbox) {
     lightbox = new SimpleLightbox('.gallery a', {
-      captions: true, // Відображення підписів, якщо вони є
-      captionsData: 'alt', // Отримуємо підпис з атрибута alt
-      captionDelay: 250, // Затримка перед показом підпису (в мс)
+      captions: true,
+      captionsData: 'alt',
+      captionDelay: 250,
     });
   } else {
     lightbox.refresh();

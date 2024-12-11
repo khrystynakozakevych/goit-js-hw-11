@@ -1,3 +1,4 @@
+// importing modules and packages
 import { fetchImages } from './js/pixabay-api';
 import {
   renderGallery,
@@ -5,16 +6,15 @@ import {
   showLoader,
   hideLoader,
 } from './js/render-functions';
-
-// Описаний у документації
 import iziToast from 'izitoast';
-// Додатковий імпорт стилів
 import 'izitoast/dist/css/iziToast.min.css';
 
+// getting DOM elements
 const form = document.getElementById('search-form');
 const input = document.querySelector('.search-input');
 const loader = document.querySelector('.loader');
 
+// adding event listener to the input
 form.addEventListener('submit', event => {
   event.preventDefault();
 
@@ -29,12 +29,16 @@ form.addEventListener('submit', event => {
     return;
   }
 
+  // clearing the gallery and showing the loader
   clearGallery();
   showLoader(loader);
 
+  // fetching the images from the server
   fetchImages(query)
     .then(data => {
-      hideLoader(loader);
+      hideLoader(loader); // hiding the loader
+
+      // sending the warning if the are no images for the query
       if (data.hits.length === 0) {
         iziToast.warning({
           message: 'Sorry, there are no images matching your search query.',
@@ -44,8 +48,12 @@ form.addEventListener('submit', event => {
         });
         return;
       }
+
+      // rendering the gallery with query informations
       renderGallery(data.hits);
     })
+
+    // sending the warning if there's an error
     .catch(error => {
       hideLoader(loader);
       iziToast.error({
